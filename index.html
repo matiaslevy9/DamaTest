@@ -347,7 +347,7 @@ label.form-label{display:block;font-size:11px;text-transform:uppercase;letter-sp
   --cob-oc:#7c3aed; --cob-oc-dim:#ede9fe;
   --cob-fibra:#059669; --cob-repro:#0284c7; --cob-porta:#7c3aed; --cob-pyme:#ea580c;
   font-family:'Inter',sans-serif; color:var(--cob-text); font-size:15px;
-  background:var(--cob-bg); border-radius:var(--radius-lg); overflow:hidden;
+  background:var(--cob-bg); border-radius:var(--radius-lg); overflow-x:auto; overflow-y:visible;
 }
 .cob-wrapper .cob-header {
   background:var(--cob-mov-blue-dk); padding:0 20px;
@@ -376,7 +376,8 @@ label.form-label{display:block;font-size:11px;text-transform:uppercase;letter-sp
 .cob-wrapper .rrss-pip { width:10px;height:10px;border-radius:50%;flex-shrink:0; }
 .cob-wrapper .rrss-name { font-size:14px;font-weight:700;color:var(--cob-text); }
 .cob-wrapper .rrss-sub { font-family:'DM Mono',monospace;font-size:10px;color:var(--cob-muted);margin-left:4px; }
-.cob-wrapper .products-grid { display:grid;gap:0;grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); }
+.cob-wrapper .products-grid { display:grid;gap:0;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));min-width:0; }
+@media(max-width:900px){ .cob-wrapper .products-grid { grid-template-columns:repeat(2,1fr); } }
 .cob-wrapper .product-col { background:var(--cob-surface);padding:14px;border-right:1px solid var(--cob-border); }
 .cob-wrapper .product-col:last-child { border-right:none; }
 .cob-wrapper .product-header { display:flex;align-items:center;gap:8px;margin-bottom:12px; }
@@ -392,15 +393,15 @@ label.form-label{display:block;font-size:11px;text-transform:uppercase;letter-sp
 .cob-wrapper .slot-status.err { color:var(--cob-red); }
 .cob-wrapper .slot-status.loading { color:var(--cob-yellow);animation:cob-blink 1s infinite; }
 @keyframes cob-blink { 0%,100%{opacity:1} 50%{opacity:.4} }
-.cob-wrapper .slot-body { padding:8px 10px;display:flex;gap:6px;background:var(--cob-surface2); }
+.cob-wrapper .slot-body { padding:8px 10px;display:flex;gap:6px;background:var(--cob-surface2);flex-wrap:wrap; }
 .cob-wrapper .slot-url { flex:1;background:white;border:1px solid var(--cob-border);border-radius:5px;padding:6px 8px;font-family:'DM Mono',monospace;font-size:10px;color:var(--cob-text);outline:none; }
 .cob-wrapper .slot-url:focus { border-color:var(--cob-mov-blue);box-shadow:0 0 0 2px var(--cob-mov-blue-lt); }
 .cob-wrapper .slot-btn { padding:6px 12px;border-radius:5px;border:1px solid var(--cob-mov-blue);background:var(--cob-mov-blue);color:white;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap;font-family:'Inter',sans-serif; }
 .cob-wrapper .slot-btn:hover { background:var(--cob-mov-blue-dk);border-color:var(--cob-mov-blue-dk); }
 .cob-wrapper .slot-summary { padding:5px 10px 8px;font-family:'DM Mono',monospace;font-size:10px;color:var(--cob-green);background:#f0fdf4;border-top:1px solid var(--cob-green-border);display:none; }
 .cob-wrapper .slot-summary.show { display:block; }
-.cob-wrapper .global-banner { display:grid;grid-template-columns:auto repeat(4,1fr);gap:0;background:var(--cob-surface);border:1px solid var(--cob-border);border-radius:12px;overflow:hidden;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.06); }
-@media(max-width:900px){ .cob-wrapper .global-banner { grid-template-columns:1fr 1fr; } }
+.cob-wrapper .global-banner { display:grid;grid-template-columns:auto repeat(4,1fr);gap:0;background:var(--cob-surface);border:1px solid var(--cob-border);border-radius:12px;overflow:hidden;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.06); min-width:0; }
+@media(max-width:1000px){ .cob-wrapper .global-banner { grid-template-columns:1fr 1fr; } }
 .cob-wrapper .g-kpi-total { padding:20px 24px;background:var(--cob-mov-blue-dk);color:white;display:flex;flex-direction:column;justify-content:center; }
 .cob-wrapper .global-total-label { font-size:11px;text-transform:uppercase;letter-spacing:1px;opacity:.8;margin-bottom:6px; }
 .cob-wrapper .global-total-num { font-family:'DM Mono',monospace;font-size:36px;font-weight:600;line-height:1; }
@@ -1371,7 +1372,7 @@ const PERMS = {
   rrhh_emp:    ['dashboard','perfil','empleados','operatividad','mensajes','calendario'],
   calidad_sup: ['dashboard','perfil','empleados','equipo','herramientas','pdv','reporteria','cobranzas','mensajes','calendario'],
   calidad_emp: ['dashboard','perfil','empleados','herramientas','pdv','cobranzas','mensajes','calendario'],
-  gerencia:    ['dashboard','perfil','gestion','reporteria','cobranzas','metricas','pdv','mensajes','calendario'],
+  gerencia:    ['dashboard','perfil','gestion','reporteria','metricas','pdv','mensajes','calendario'],
   adm_sup:     ['dashboard','perfil','distribucion','equipo','reporteria','mensajes','calendario'],
   adm_emp:     ['dashboard','perfil','mensajes','calendario'],
   ventas_sup:  ['dashboard','perfil','equipo','cobranzas','reporteria','mensajes','calendario'],
@@ -1844,7 +1845,7 @@ function buildNav(){
     {page:'bonos',          icon:'<i class="bi bi-cash-coin"></i>', label:'Bonos de sueldo'},
     {page:'vacaciones',     icon:'<i class="bi bi-umbrella-fill"></i>', label:'Vacaciones'},
     {page:'cobranzas',      icon:'<i class="bi bi-bar-chart-fill"></i>', label:'Métricas'},
-    {page:'metricas',       icon:'<i class="bi bi-graph-up-arrow"></i>', label:'Métricas'},
+    {page:'metricas',       icon:'<i class="bi bi-graph-up-arrow"></i>', label:'Analítica'},
     // Administración (solo Sistemas)
     {page:'sistemas',       icon:'<i class="bi bi-gear-fill"></i>', label:'Administración'},
     // Mensajes y calendario siempre al final
@@ -5878,9 +5879,7 @@ function renderMetricasGerencia(){
   // Gerencia: inicializar cobranzas en background si no está listo
   if(!_cobInitialized){
     initCobranzas();
-    // Ocultar el wrapper de cobranzas para que no se vea la UI completa
-    const cw=document.getElementById('cob-wrapper');
-    if(cw) cw.style.display='none';
+    // page-cobranzas no está activa así que cob-wrapper ya está oculto por el sistema de páginas
   }
 
   // Botón para actualizar datos desde la fuente
@@ -5986,32 +5985,26 @@ function renderMetricasGerencia(){
 }
 
 function cobActualizarMetricas(){
-  // Sincronizar filtros del módulo Métricas → filtros de Cobranzas, y luego renderizar analítica
-  const rrssEl=document.getElementById('met-filter-rrss');
-  const mesEl=document.getElementById('met-filter-mes');
-  const prodEl=document.getElementById('met-filter-prod');
+  if(!_cobInitialized) return;
 
-  // Sync con filtros de cobranzas si existen
-  const cobRrss=document.getElementById('cob-an-filter-rrss');
-  const cobMes=document.getElementById('cob-an-filter-mes');
-  const cobProd=document.getElementById('cob-an-filter-prod');
-  if(cobRrss&&rrssEl) cobRrss.value=rrssEl.value;
-  if(cobMes&&mesEl) cobMes.value=mesEl.value;
-  if(cobProd&&prodEl) cobProd.value=prodEl.value;
+  // Sincronizar filtros métricas → cobranzas
+  const pairs=[['met-filter-rrss','cob-an-filter-rrss'],['met-filter-mes','cob-an-filter-mes'],['met-filter-prod','cob-an-filter-prod']];
+  pairs.forEach(function(p){
+    const src=document.getElementById(p[0]);
+    const dst=document.getElementById(p[1]);
+    if(src&&dst) dst.value=src.value;
+  });
 
-  // Llamar al render de analítica de cobranzas si está disponible
+  // Renderizar analítica en contenedores de cobranzas
   if(typeof window.cobRenderAnalitica==='function'){
     window.cobRenderAnalitica();
-    // Copiar output de los containers de cobranzas a los de métricas
-    setTimeout(()=>_syncMetricasFromCob(), 50);
-  } else {
-    // No hay datos aún
-    _metricasSinDatos();
   }
+
+  // Copiar resultado inmediatamente (no hay async, es render síncrono)
+  _syncMetricasFromCob();
 }
 
 function _syncMetricasFromCob(){
-  // Copiar el contenido renderizado por cobranzas a los paneles de métricas
   const pairs=[
     ['an-equipo-bars','met-equipo-bars'],
     ['an-rank-bars','met-rank-bars'],
@@ -6021,9 +6014,9 @@ function _syncMetricasFromCob(){
     ['an-rank-cnt','met-rank-cnt'],
     ['an-vend-cnt','met-vend-cnt'],
   ];
-  pairs.forEach(function(pair){
-    const src=document.getElementById('cob-'+pair[0]);
-    const dst=document.getElementById(pair[1]);
+  pairs.forEach(function(p){
+    const src=document.getElementById('cob-'+p[0]);
+    const dst=document.getElementById(p[1]);
     if(src&&dst) dst.innerHTML=src.innerHTML;
   });
 }
@@ -6042,7 +6035,7 @@ function initCobranzas(){
   if(!wrapper) return;
   if(_cobInitialized) return; // solo inicializar una vez
   _cobInitialized = true;
-  
+
   // ── Inyectar HTML del dashboard ──
   wrapper.innerHTML = `
     <div class="cob-header">
@@ -6057,7 +6050,7 @@ function initCobranzas(){
         <div class="cob-header-date" id="cob-fecha-hoy"></div>
         <button class="cob-btn-refresh" onclick="cobRecargarTodo()">↻ Actualizar todo</button>
       </div>
-      <div class="cob-objetivo-chip">OBJETIVO ≤ 8% MORA</div>
+      <div class="cob-objetivo-chip">OBJETIVO ≤ 8.00% MORA</div>
     </div>
     <div class="cob-main">
       <div class="hint">
@@ -6118,7 +6111,7 @@ function initCobranzas(){
         <div class="an-card an-section"><div class="an-card-header">Deuda por vendedor · detalle <span class="an-card-badge" id="cob-an-vend-cnt">—</span></div><div class="an-scroll" style="max-height:480px;overflow-x:auto;"><table class="vend-table" id="cob-an-vend-table"><thead><tr><th>Equipo</th><th>Vendedor</th><th>Ventas</th><th>% Mora</th><th>Deuda F1</th><th>Deuda F2</th><th>F1+F2</th><th>Total deuda</th></tr></thead><tbody id="cob-an-vend-tbody"></tbody></table></div></div>
       </div>
     </div>`;
-  
+
   // ── Fecha ──
   document.getElementById('cob-fecha-hoy').textContent =
     new Date().toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
@@ -6202,6 +6195,14 @@ function initCobranzas(){
       </div>`).join('');
 
     window.cobState_update=function(rId,pId,i,key,val){ cobState[rId][pId][i][key]=val; cobRenderAll(); };
+    window.cobRenderAll=function(){
+      cobRenderAll();
+      // Si Gerencia tiene la página de métricas activa, sincronizar automáticamente
+      if(document.getElementById('page-metricas')?.classList.contains('active')){
+        if(typeof window.cobRenderAnalitica==='function') window.cobRenderAnalitica();
+        if(typeof _syncMetricasFromCob==='function') _syncMetricasFromCob();
+      }
+    };
 
     // Proxies
     const PROXIES=[
