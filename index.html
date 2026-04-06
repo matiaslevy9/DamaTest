@@ -1884,7 +1884,7 @@ function navigateTo(page){
   if(page==='perfil') renderPerfil();
   if(page==='empleados') renderEmployees();
   if(page==='calendario') renderCalendario();
-  //if(page==='cobranzas') initCobranzas();
+  if(page==='cobranzas') initCobranzas();
   if(page==='metricas') renderMetricasGerencia();
   if(page==='equipo') renderEquipo();
   if(page==='gestion') renderGestion();
@@ -6042,7 +6042,7 @@ function initCobranzas(){
   if(!wrapper) return;
   if(_cobInitialized) return; // solo inicializar una vez
   _cobInitialized = true;
-<!--
+  
   // ── Inyectar HTML del dashboard ──
   wrapper.innerHTML = `
     <div class="cob-header">
@@ -6118,7 +6118,7 @@ function initCobranzas(){
         <div class="an-card an-section"><div class="an-card-header">Deuda por vendedor · detalle <span class="an-card-badge" id="cob-an-vend-cnt">—</span></div><div class="an-scroll" style="max-height:480px;overflow-x:auto;"><table class="vend-table" id="cob-an-vend-table"><thead><tr><th>Equipo</th><th>Vendedor</th><th>Ventas</th><th>% Mora</th><th>Deuda F1</th><th>Deuda F2</th><th>F1+F2</th><th>Total deuda</th></tr></thead><tbody id="cob-an-vend-tbody"></tbody></table></div></div>
       </div>
     </div>`;
--->
+  
   // ── Fecha ──
   document.getElementById('cob-fecha-hoy').textContent =
     new Date().toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
